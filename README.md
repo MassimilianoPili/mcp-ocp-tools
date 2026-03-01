@@ -8,11 +8,11 @@ Spring Boot starter providing 49 MCP tools for OpenShift Container Platform 4. C
 <dependency>
     <groupId>io.github.massimilianopili</groupId>
     <artifactId>mcp-ocp-tools</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
-Requires Java 17+, Spring AI 1.0.0+, and [spring-ai-reactive-tools](https://github.com/MassimilianoPili/spring-ai-reactive-tools) 0.2.0+.
+Requires Java 21+, Spring AI 1.0.0+, and [spring-ai-reactive-tools](https://github.com/MassimilianoPili/spring-ai-reactive-tools) 0.3.0+.
 
 ## Tools (49)
 
@@ -57,10 +57,10 @@ MCP_OCP_NAMESPACE=my-project                    # default: "default"
 
 ## Requirements
 
-- Java 17+
+- Java 21+
 - Spring Boot 3.4+ with WebFlux
 - Spring AI 1.0.0+
-- spring-ai-reactive-tools 0.2.0+
+- spring-ai-reactive-tools 0.3.0+
 
 ## License
 
