@@ -30,10 +30,10 @@ public class OcpConfigMapTools {
     }
 
     @ReactiveTool(name = "ocp_list_configmaps",
-          description = "Elenca le ConfigMap in un namespace")
+          description = "Lists ConfigMaps in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listConfigMaps(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/configmaps")
@@ -57,11 +57,11 @@ public class OcpConfigMapTools {
     }
 
     @ReactiveTool(name = "ocp_get_configmap",
-          description = "Recupera una ConfigMap con il suo contenuto dati")
+          description = "Retrieves a ConfigMap with its data contents")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getConfigMap(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome della ConfigMap") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "ConfigMap name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/configmaps/" + name)
@@ -72,12 +72,12 @@ public class OcpConfigMapTools {
     }
 
     @ReactiveTool(name = "ocp_create_configmap",
-          description = "Crea una nuova ConfigMap con i dati specificati in formato JSON")
+          description = "Creates a new ConfigMap with the specified JSON data")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> createConfigMap(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome della ConfigMap") String name,
-            @ToolParam(description = "Dati in formato JSON, es: {\"key1\":\"value1\",\"key2\":\"value2\"}") String dataJson) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "ConfigMap name") String name,
+            @ToolParam(description = "Data as JSON, e.g.: {\"key1\":\"value1\",\"key2\":\"value2\"}") String dataJson) {
         String ns = props.resolveNamespace(namespace);
         return Mono.defer(() -> {
             Map<String, String> data;
@@ -105,12 +105,12 @@ public class OcpConfigMapTools {
     }
 
     @ReactiveTool(name = "ocp_update_configmap",
-          description = "Aggiorna i dati di una ConfigMap esistente")
+          description = "Updates the data of an existing ConfigMap")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> updateConfigMap(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome della ConfigMap") String name,
-            @ToolParam(description = "Nuovi dati in formato JSON") String dataJson) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "ConfigMap name") String name,
+            @ToolParam(description = "New data as JSON") String dataJson) {
         String ns = props.resolveNamespace(namespace);
         return Mono.defer(() -> {
             Map<String, String> data;
@@ -138,10 +138,10 @@ public class OcpConfigMapTools {
     }
 
     @ReactiveTool(name = "ocp_delete_configmap",
-          description = "Elimina una ConfigMap")
+          description = "Deletes a ConfigMap")
     public Mono<Map<String, Object>> deleteConfigMap(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome della ConfigMap da eliminare") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Name of the ConfigMap to delete") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.delete()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/configmaps/" + name)

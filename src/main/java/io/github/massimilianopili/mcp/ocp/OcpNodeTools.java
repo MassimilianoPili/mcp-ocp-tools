@@ -25,7 +25,7 @@ public class OcpNodeTools {
     }
 
     @ReactiveTool(name = "ocp_list_nodes",
-          description = "Elenca tutti i nodi del cluster OpenShift")
+          description = "Lists all nodes in the OpenShift cluster")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listNodes() {
         return webClient.get()
@@ -60,10 +60,10 @@ public class OcpNodeTools {
     }
 
     @ReactiveTool(name = "ocp_get_node",
-          description = "Recupera i dettagli di un nodo del cluster")
+          description = "Retrieves details of a cluster node")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getNode(
-            @ToolParam(description = "Nome del nodo") String name) {
+            @ToolParam(description = "Node name") String name) {
         return webClient.get()
                 .uri(props.getApiV1Base() + "/nodes/" + name)
                 .retrieve()
@@ -73,10 +73,10 @@ public class OcpNodeTools {
     }
 
     @ReactiveTool(name = "ocp_get_node_status",
-          description = "Recupera lo stato dettagliato di un nodo (condizioni, capacita', allocazione)")
+          description = "Retrieves detailed node status (conditions, capacity, allocatable resources)")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getNodeStatus(
-            @ToolParam(description = "Nome del nodo") String name) {
+            @ToolParam(description = "Node name") String name) {
         return webClient.get()
                 .uri(props.getApiV1Base() + "/nodes/" + name + "/status")
                 .retrieve()

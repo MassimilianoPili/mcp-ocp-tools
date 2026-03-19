@@ -25,10 +25,10 @@ public class OcpPodTools {
     }
 
     @ReactiveTool(name = "ocp_list_pods",
-          description = "Elenca i pod in un namespace OpenShift")
+          description = "Lists pods in an OpenShift namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listPods(
-            @ToolParam(description = "Namespace (opzionale, usa il default da config)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional, uses default from config)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/pods")
@@ -57,7 +57,7 @@ public class OcpPodTools {
     }
 
     @ReactiveTool(name = "ocp_list_all_pods",
-          description = "Elenca tutti i pod in tutti i namespace del cluster")
+          description = "Lists all pods across all namespaces in the cluster")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listAllPods() {
         return webClient.get()
@@ -81,11 +81,11 @@ public class OcpPodTools {
     }
 
     @ReactiveTool(name = "ocp_get_pod",
-          description = "Recupera i dettagli di un pod specifico")
+          description = "Retrieves details of a specific pod")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getPod(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del pod") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Pod name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/pods/" + name)
@@ -96,13 +96,13 @@ public class OcpPodTools {
     }
 
     @ReactiveTool(name = "ocp_get_pod_logs",
-          description = "Recupera i log di un pod (o di un container specifico)",
+          description = "Retrieves logs from a pod (or a specific container)",
           timeoutMs = 60000)
     public Mono<String> getPodLogs(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del pod") String name,
-            @ToolParam(description = "Nome del container (opzionale, per pod multi-container)", required = false) String container,
-            @ToolParam(description = "Numero di righe dalla fine (default: 100)", required = false) Integer tailLines) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Pod name") String name,
+            @ToolParam(description = "Container name (optional, for multi-container pods)", required = false) String container,
+            @ToolParam(description = "Number of lines from the end (default: 100)", required = false) Integer tailLines) {
         String ns = props.resolveNamespace(namespace);
         int tail = (tailLines != null && tailLines > 0) ? tailLines : 100;
         StringBuilder uri = new StringBuilder()
@@ -122,10 +122,10 @@ public class OcpPodTools {
     }
 
     @ReactiveTool(name = "ocp_delete_pod",
-          description = "Elimina un pod dal namespace specificato")
+          description = "Deletes a pod from the specified namespace")
     public Mono<Map<String, Object>> deletePod(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del pod da eliminare") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Name of the pod to delete") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.delete()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/pods/" + name)

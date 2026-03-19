@@ -27,10 +27,10 @@ public class OcpDeploymentTools {
     }
 
     @ReactiveTool(name = "ocp_list_deployments",
-          description = "Elenca i deployment in un namespace OpenShift")
+          description = "Lists deployments in an OpenShift namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listDeployments(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getAppsV1Base() + "/namespaces/" + ns + "/deployments")
@@ -57,11 +57,11 @@ public class OcpDeploymentTools {
     }
 
     @ReactiveTool(name = "ocp_get_deployment",
-          description = "Recupera i dettagli di un deployment")
+          description = "Retrieves details of a deployment")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getDeployment(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del deployment") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Deployment name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getAppsV1Base() + "/namespaces/" + ns + "/deployments/" + name)
@@ -72,12 +72,12 @@ public class OcpDeploymentTools {
     }
 
     @ReactiveTool(name = "ocp_scale_deployment",
-          description = "Scala un deployment al numero di repliche indicato")
+          description = "Scales a deployment to the specified number of replicas")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> scaleDeployment(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del deployment") String name,
-            @ToolParam(description = "Numero di repliche desiderate") int replicas) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Deployment name") String name,
+            @ToolParam(description = "Desired number of replicas") int replicas) {
         String ns = props.resolveNamespace(namespace);
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("apiVersion", "autoscaling/v1");
@@ -103,11 +103,11 @@ public class OcpDeploymentTools {
     }
 
     @ReactiveTool(name = "ocp_restart_deployment",
-          description = "Esegue un rollout restart di un deployment (aggiorna l'annotation restartedAt)")
+          description = "Performs a rollout restart of a deployment (updates the restartedAt annotation)")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> restartDeployment(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del deployment") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Deployment name") String name) {
         String ns = props.resolveNamespace(namespace);
         String patchBody = "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":" +
                 "{\"kubectl.kubernetes.io/restartedAt\":\"" + Instant.now().toString() + "\"}}}}}";

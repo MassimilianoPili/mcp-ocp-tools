@@ -25,10 +25,10 @@ public class OcpJobTools {
     }
 
     @ReactiveTool(name = "ocp_list_jobs",
-          description = "Elenca i Job in un namespace")
+          description = "Lists Jobs in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listJobs(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getBatchV1Base() + "/namespaces/" + ns + "/jobs")
@@ -55,10 +55,10 @@ public class OcpJobTools {
     }
 
     @ReactiveTool(name = "ocp_list_cronjobs",
-          description = "Elenca i CronJob in un namespace")
+          description = "Lists CronJobs in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listCronJobs(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getBatchV1Base() + "/namespaces/" + ns + "/cronjobs")
@@ -86,11 +86,11 @@ public class OcpJobTools {
     }
 
     @ReactiveTool(name = "ocp_get_job",
-          description = "Recupera i dettagli di un Job")
+          description = "Retrieves details of a Job")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getJob(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del Job") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Job name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getBatchV1Base() + "/namespaces/" + ns + "/jobs/" + name)

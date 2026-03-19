@@ -24,7 +24,7 @@ public class OcpClusterTools {
     }
 
     @ReactiveTool(name = "ocp_get_cluster_version",
-          description = "Recupera la versione del cluster OpenShift")
+          description = "Retrieves the OpenShift cluster version")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getClusterVersion() {
         return webClient.get()
@@ -52,7 +52,7 @@ public class OcpClusterTools {
     }
 
     @ReactiveTool(name = "ocp_list_cluster_operators",
-          description = "Elenca lo stato degli operatori del cluster OpenShift")
+          description = "Lists OpenShift cluster operators with their status")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listClusterOperators() {
         return webClient.get()
@@ -86,7 +86,7 @@ public class OcpClusterTools {
     }
 
     @ReactiveTool(name = "ocp_check_api_health",
-          description = "Verifica se l'API server del cluster OpenShift e' raggiungibile")
+          description = "Checks if the OpenShift cluster API server is reachable")
     public Mono<Map<String, Object>> checkApiHealth() {
         String baseUrl = props.getServer();
         if (baseUrl != null && baseUrl.endsWith("/")) {

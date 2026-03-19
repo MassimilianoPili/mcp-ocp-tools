@@ -25,10 +25,10 @@ public class OcpEventTools {
     }
 
     @ReactiveTool(name = "ocp_list_events",
-          description = "Elenca gli eventi recenti in un namespace")
+          description = "Lists recent events in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listEvents(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/events")
@@ -54,12 +54,12 @@ public class OcpEventTools {
     }
 
     @ReactiveTool(name = "ocp_list_events_for_resource",
-          description = "Elenca gli eventi relativi a una risorsa specifica (pod, deployment, etc.)")
+          description = "Lists events related to a specific resource (pod, deployment, etc.)")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listEventsForResource(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome della risorsa") String resourceName,
-            @ToolParam(description = "Tipo della risorsa: Pod, Deployment, Service, etc. (opzionale)", required = false) String resourceKind) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Resource name") String resourceName,
+            @ToolParam(description = "Resource kind: Pod, Deployment, Service, etc. (optional)", required = false) String resourceKind) {
         String ns = props.resolveNamespace(namespace);
         StringBuilder uri = new StringBuilder()
                 .append(props.getApiV1Base())

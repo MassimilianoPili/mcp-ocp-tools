@@ -25,10 +25,10 @@ public class OcpServiceTools {
     }
 
     @ReactiveTool(name = "ocp_list_services",
-          description = "Elenca i servizi Kubernetes in un namespace")
+          description = "Lists Kubernetes services in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listServices(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/services")
@@ -54,11 +54,11 @@ public class OcpServiceTools {
     }
 
     @ReactiveTool(name = "ocp_get_service",
-          description = "Recupera i dettagli di un servizio Kubernetes")
+          description = "Retrieves details of a Kubernetes service")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getService(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del servizio") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Service name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/services/" + name)

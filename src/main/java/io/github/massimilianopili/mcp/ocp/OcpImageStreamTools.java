@@ -25,10 +25,10 @@ public class OcpImageStreamTools {
     }
 
     @ReactiveTool(name = "ocp_list_imagestreams",
-          description = "Elenca gli ImageStream in un namespace OpenShift")
+          description = "Lists ImageStreams in an OpenShift namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listImageStreams(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getImageV1Base() + "/namespaces/" + ns + "/imagestreams")
@@ -53,11 +53,11 @@ public class OcpImageStreamTools {
     }
 
     @ReactiveTool(name = "ocp_get_imagestream",
-          description = "Recupera i dettagli di un ImageStream (tag, immagini associate)")
+          description = "Retrieves details of an ImageStream (tags, associated images)")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getImageStream(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome dell'ImageStream") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "ImageStream name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getImageV1Base() + "/namespaces/" + ns + "/imagestreams/" + name)

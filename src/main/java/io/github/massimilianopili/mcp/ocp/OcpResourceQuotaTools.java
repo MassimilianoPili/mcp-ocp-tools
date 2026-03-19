@@ -25,10 +25,10 @@ public class OcpResourceQuotaTools {
     }
 
     @ReactiveTool(name = "ocp_list_resource_quotas",
-          description = "Elenca le ResourceQuota definite in un namespace")
+          description = "Lists ResourceQuotas defined in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listResourceQuotas(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/resourcequotas")
@@ -52,11 +52,11 @@ public class OcpResourceQuotaTools {
     }
 
     @ReactiveTool(name = "ocp_get_resource_quota",
-          description = "Recupera i dettagli di una ResourceQuota (limiti e utilizzo corrente)")
+          description = "Retrieves details of a ResourceQuota (limits and current usage)")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getResourceQuota(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome della ResourceQuota") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "ResourceQuota name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/resourcequotas/" + name)

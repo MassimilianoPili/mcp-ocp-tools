@@ -26,10 +26,10 @@ public class OcpRouteTools {
     }
 
     @ReactiveTool(name = "ocp_list_routes",
-          description = "Elenca le route OpenShift in un namespace")
+          description = "Lists OpenShift routes in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listRoutes(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getRouteV1Base() + "/namespaces/" + ns + "/routes")
@@ -57,11 +57,11 @@ public class OcpRouteTools {
     }
 
     @ReactiveTool(name = "ocp_get_route",
-          description = "Recupera i dettagli di una route OpenShift")
+          description = "Retrieves details of an OpenShift route")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getRoute(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome della route") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Route name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getRouteV1Base() + "/namespaces/" + ns + "/routes/" + name)
@@ -72,15 +72,15 @@ public class OcpRouteTools {
     }
 
     @ReactiveTool(name = "ocp_create_route",
-          description = "Crea una route OpenShift per esporre un servizio")
+          description = "Creates an OpenShift route to expose a service")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> createRoute(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome della route") String name,
-            @ToolParam(description = "Nome del servizio da esporre") String serviceName,
-            @ToolParam(description = "Porta del servizio target") int port,
-            @ToolParam(description = "Hostname personalizzato (opzionale)", required = false) String hostname,
-            @ToolParam(description = "Terminazione TLS: edge, passthrough, reencrypt (opzionale)", required = false) String tlsTermination) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Route name") String name,
+            @ToolParam(description = "Name of the service to expose") String serviceName,
+            @ToolParam(description = "Target service port") int port,
+            @ToolParam(description = "Custom hostname (optional)", required = false) String hostname,
+            @ToolParam(description = "TLS termination: edge, passthrough, reencrypt (optional)", required = false) String tlsTermination) {
         String ns = props.resolveNamespace(namespace);
 
         Map<String, Object> body = new LinkedHashMap<>();

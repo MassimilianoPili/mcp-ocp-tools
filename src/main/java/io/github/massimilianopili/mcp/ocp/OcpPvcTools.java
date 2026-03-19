@@ -25,10 +25,10 @@ public class OcpPvcTools {
     }
 
     @ReactiveTool(name = "ocp_list_pvcs",
-          description = "Elenca i PersistentVolumeClaim in un namespace")
+          description = "Lists PersistentVolumeClaims in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listPvcs(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/persistentvolumeclaims")
@@ -58,11 +58,11 @@ public class OcpPvcTools {
     }
 
     @ReactiveTool(name = "ocp_get_pvc",
-          description = "Recupera i dettagli di un PersistentVolumeClaim")
+          description = "Retrieves details of a PersistentVolumeClaim")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getPvc(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del PVC") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "PVC name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/persistentvolumeclaims/" + name)

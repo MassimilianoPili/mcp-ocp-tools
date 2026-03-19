@@ -25,10 +25,10 @@ public class OcpSecretTools {
     }
 
     @ReactiveTool(name = "ocp_list_secrets",
-          description = "Elenca i Secret in un namespace (solo metadati, nessun valore esposto per sicurezza)")
+          description = "Lists Secrets in a namespace (metadata only, values are not exposed for security)")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listSecrets(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/secrets")
@@ -53,11 +53,11 @@ public class OcpSecretTools {
     }
 
     @ReactiveTool(name = "ocp_get_secret_metadata",
-          description = "Recupera i metadati di un Secret (tipo, chiavi presenti, annotazioni). I valori NON vengono esposti.")
+          description = "Retrieves metadata of a Secret (type, keys, annotations). Values are NOT exposed.")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getSecretMetadata(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome del Secret") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "Secret name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getApiV1Base() + "/namespaces/" + ns + "/secrets/" + name)

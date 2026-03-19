@@ -26,10 +26,10 @@ public class OcpStatefulSetTools {
     }
 
     @ReactiveTool(name = "ocp_list_statefulsets",
-          description = "Elenca gli StatefulSet in un namespace")
+          description = "Lists StatefulSets in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listStatefulSets(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getAppsV1Base() + "/namespaces/" + ns + "/statefulsets")
@@ -56,11 +56,11 @@ public class OcpStatefulSetTools {
     }
 
     @ReactiveTool(name = "ocp_get_statefulset",
-          description = "Recupera i dettagli di uno StatefulSet")
+          description = "Retrieves details of a StatefulSet")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getStatefulSet(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome dello StatefulSet") String name) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "StatefulSet name") String name) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getAppsV1Base() + "/namespaces/" + ns + "/statefulsets/" + name)
@@ -71,12 +71,12 @@ public class OcpStatefulSetTools {
     }
 
     @ReactiveTool(name = "ocp_scale_statefulset",
-          description = "Scala uno StatefulSet al numero di repliche indicato")
+          description = "Scales a StatefulSet to the specified number of replicas")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> scaleStatefulSet(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome dello StatefulSet") String name,
-            @ToolParam(description = "Numero di repliche desiderate") int replicas) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "StatefulSet name") String name,
+            @ToolParam(description = "Desired number of replicas") int replicas) {
         String ns = props.resolveNamespace(namespace);
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("apiVersion", "autoscaling/v1");

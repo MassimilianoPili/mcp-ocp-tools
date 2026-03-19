@@ -26,7 +26,7 @@ public class OcpProjectTools {
     }
 
     @ReactiveTool(name = "ocp_list_projects",
-          description = "Elenca tutti i progetti (namespace) nel cluster OpenShift")
+          description = "Lists all projects (namespaces) in the OpenShift cluster")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listProjects() {
         return webClient.get()
@@ -52,10 +52,10 @@ public class OcpProjectTools {
     }
 
     @ReactiveTool(name = "ocp_get_project",
-          description = "Recupera i dettagli di un progetto OpenShift")
+          description = "Retrieves details of an OpenShift project")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> getProject(
-            @ToolParam(description = "Nome del progetto") String name) {
+            @ToolParam(description = "Project name") String name) {
         return webClient.get()
                 .uri(props.getProjectV1Base() + "/projects/" + name)
                 .retrieve()
@@ -65,11 +65,11 @@ public class OcpProjectTools {
     }
 
     @ReactiveTool(name = "ocp_create_project",
-          description = "Crea un nuovo progetto (ProjectRequest) in OpenShift")
+          description = "Creates a new OpenShift project (ProjectRequest)")
     public Mono<Map<String, Object>> createProject(
-            @ToolParam(description = "Nome del progetto") String name,
-            @ToolParam(description = "Nome visualizzato", required = false) String displayName,
-            @ToolParam(description = "Descrizione del progetto", required = false) String description) {
+            @ToolParam(description = "Project name") String name,
+            @ToolParam(description = "Display name", required = false) String displayName,
+            @ToolParam(description = "Project description", required = false) String description) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("apiVersion", "project.openshift.io/v1");
         body.put("kind", "ProjectRequest");
@@ -94,9 +94,9 @@ public class OcpProjectTools {
     }
 
     @ReactiveTool(name = "ocp_delete_project",
-          description = "Elimina un progetto OpenShift")
+          description = "Deletes an OpenShift project")
     public Mono<Map<String, Object>> deleteProject(
-            @ToolParam(description = "Nome del progetto da eliminare") String name) {
+            @ToolParam(description = "Name of the project to delete") String name) {
         return webClient.delete()
                 .uri(props.getProjectV1Base() + "/projects/" + name)
                 .retrieve()

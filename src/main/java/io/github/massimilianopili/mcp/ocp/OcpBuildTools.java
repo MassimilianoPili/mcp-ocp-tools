@@ -26,10 +26,10 @@ public class OcpBuildTools {
     }
 
     @ReactiveTool(name = "ocp_list_buildconfigs",
-          description = "Elenca le BuildConfig in un namespace OpenShift")
+          description = "Lists BuildConfigs in an OpenShift namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listBuildConfigs(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getBuildV1Base() + "/namespaces/" + ns + "/buildconfigs")
@@ -55,10 +55,10 @@ public class OcpBuildTools {
     }
 
     @ReactiveTool(name = "ocp_list_builds",
-          description = "Elenca le Build (esecuzioni di build) in un namespace")
+          description = "Lists Builds (build executions) in a namespace")
     @SuppressWarnings("unchecked")
     public Mono<List<Map<String, Object>>> listBuilds(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace) {
         String ns = props.resolveNamespace(namespace);
         return webClient.get()
                 .uri(props.getBuildV1Base() + "/namespaces/" + ns + "/builds")
@@ -83,11 +83,11 @@ public class OcpBuildTools {
     }
 
     @ReactiveTool(name = "ocp_trigger_build",
-          description = "Avvia una nuova build da una BuildConfig (instantiate)")
+          description = "Triggers a new build from a BuildConfig (instantiate)")
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> triggerBuild(
-            @ToolParam(description = "Namespace (opzionale)", required = false) String namespace,
-            @ToolParam(description = "Nome della BuildConfig") String buildConfigName) {
+            @ToolParam(description = "Namespace (optional)", required = false) String namespace,
+            @ToolParam(description = "BuildConfig name") String buildConfigName) {
         String ns = props.resolveNamespace(namespace);
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("apiVersion", "build.openshift.io/v1");
